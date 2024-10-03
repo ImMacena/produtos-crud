@@ -12,18 +12,22 @@ namespace ProjetoProduto.Infrastructure.Repositories
             _appDbContext = appDbContext;
         }
 
-        public void Add(Produto produto)
+        public Produto Add(Produto produto)
         {
             _appDbContext.Produtos.Add(produto);
             _appDbContext.SaveChanges();
+
+            return produto;
         }
 
-        public void Delete(int id)
+        public Produto? Delete(int id)
         {
             var produto = GetById(id);
 
             if (produto != null) _appDbContext.Produtos.Remove(produto);
             _appDbContext.SaveChanges();
+
+            return produto;
         }
 
         public IEnumerable<Produto> GetAll()
@@ -36,7 +40,7 @@ namespace ProjetoProduto.Infrastructure.Repositories
             return _appDbContext.Produtos.FirstOrDefault(p => p.Id == id);
         }
 
-        public void Update(Produto produto, int id)
+        public Produto? Update(Produto produto, int id)
         {
             var produtoToUpdate = _appDbContext.Produtos.Find(id);
 
@@ -49,6 +53,8 @@ namespace ProjetoProduto.Infrastructure.Repositories
                 _appDbContext.Produtos.Update(produtoToUpdate);
                 _appDbContext.SaveChanges();
             }
+
+            return produtoToUpdate;
         }
     }
 }

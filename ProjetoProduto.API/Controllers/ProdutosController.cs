@@ -26,9 +26,14 @@ namespace ProjetoProduto.API.Controllers
                 DataCadastro = DateTime.Now
             };
 
-            _produtoService.CriarProduto(produtoToCreate);
+            var produtoCriado = _produtoService.CriarProduto(produtoToCreate);
 
-            return Created("/", produtoToCreate);
+            if (produtoCriado != null)
+            {
+                return Created($"Produtos/{produtoCriado.Id}", produtoCriado);
+            }
+
+            return NotFound("Não foi possível criar o registro.");
         }
 
         [HttpGet]
@@ -45,11 +50,9 @@ namespace ProjetoProduto.API.Controllers
             var produto = _produtoService.BuscarProdutoPorId(id);
 
             if (produto != null)
-            {
                 return Ok(produto);
-            }
 
-            return NotFound();
+            return NotFound("Registo não encontrado.");
         }
 
         [HttpPut("{id}")]
@@ -62,17 +65,23 @@ namespace ProjetoProduto.API.Controllers
                 Preco = produtoDto.Preco,
             };
 
-            _produtoService.AtualizarProduto(produtoToUpdate, id);
+            var produtoUpdated = _produtoService.AtualizarProduto(produtoToUpdate, id);
 
-            return Ok();
+            if (produtoUpdated != null)
+                return Ok(produtoUpdated);
+
+            return NotFound("Registo não encontrado.");
         }
 
         [HttpDelete("{id}")]
         public IActionResult Deletar(int id)
         {
-            _produtoService.DeletarProduto(id);
+            var produtoDeleted = _produtoService.DeletarProduto(id);
 
-            return Ok();
+            if (produtoDeleted != null)
+                return Ok(produtoDeleted);
+
+            return NotFound("Registo não encontrado.");
         }
     }
 }

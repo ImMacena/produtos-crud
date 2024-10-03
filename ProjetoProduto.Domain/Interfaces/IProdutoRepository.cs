@@ -4,10 +4,10 @@ namespace ProjetoProduto.Domain.Interfaces
 {
     public interface IProdutoRepository
     {
-        void Add(Produto produto);
+        Produto Add(Produto produto);
         IEnumerable<Produto> GetAll();
         Produto? GetById(int id);
-        void Update(Produto produto, int id);
-        void Delete(int id);
+        Produto? Update(Produto produto, int id);
+        Produto? Delete(int id);
     }
 }

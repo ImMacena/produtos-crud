@@ -12,9 +12,9 @@ namespace ProjetoProduto.Application.Services
             _produtoRepository = produtoRepository;
         }
 
-        public void CriarProduto(Produto produto)
+        public Produto CriarProduto(Produto produto)
         {
-            _produtoRepository.Add(produto);
+            return _produtoRepository.Add(produto);
         }
 
         public IEnumerable<Produto> ListarTodosProdutos()
@@ -27,14 +27,14 @@ namespace ProjetoProduto.Application.Services
             return _produtoRepository.GetById(id);
         }
 
-        public void AtualizarProduto(Produto produto, int id)
+        public Produto? AtualizarProduto(Produto produto, int id)
         {
-            _produtoRepository.Update(produto, id);
+            return _produtoRepository.Update(produto, id);
         }
 
-        public void DeletarProduto(int id)
+        public Produto? DeletarProduto(int id)
         {
-            _produtoRepository.Delete(id);
+            return _produtoRepository.Delete(id);
         }
     }
 }
